@@ -135,7 +135,8 @@ void on_resize()
 
 void on_redraw(uint32_t now_time)
 {
-	glClearColor(std::abs(std::sin(now_time * 1e-3f)), 0, 0, 1);
+	float time_secs = now_time * 1e-3f;
+	glClearColor(std::abs(std::sin(time_secs)), std::abs(std::sin(time_secs + M_PIf / 4)), std::abs(std::cos(time_secs)), 1);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	eglSwapBuffers(egl.display, egl.surface);
@@ -166,7 +167,6 @@ int main()
 	while (!states.is_initial_configured)
 		wl_display_dispatch(wl.core.display);
 
-	// TEST
 	auto query = eglQueryString(EGL_NO_DISPLAY, EGL_EXTENSIONS);
 	std::println("Pre-extensions: {}", query);
 
@@ -303,7 +303,6 @@ int main()
 	std::println("GL_VENDOR: {}", gl_query);
 	gl_query = (const char*) glGetString(GL_RENDERER);
 	std::println("GL_RENDERER: {}", gl_query);
-	// END - TEST
 
 	/*
 	wl.window.redraw_callback = wl_surface_frame(wl.window.surface);
