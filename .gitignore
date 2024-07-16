@@ -1,0 +1,4 @@
+*.o
+glad/
+build/
+xdg-shell*
